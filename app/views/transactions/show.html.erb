@@ -81,65 +81,87 @@
 
         render: function() {
           return(
-            <div className="container">
-              <h1>Your Transaction Status</h1>
-              <div className="status-wrapper">
-                {this.currentStatus(this.state.processing)}
+            <div>
+              <div className="container">
+                <h1>Your Transaction Status</h1>
+                <div className="status-wrapper">
+                  {this.currentStatus(this.state.processing)}
+                </div>
+                <table className="table table-striped">
+                  <tbody>
+                    <tr>
+                      <th scope="row">
+                        <td className="table-title">
+                          Summary
+                        </td>
+                        <td>
+                        </td>
+                      </th>
+                    </tr>
+                    <tr>
+                      <th scope="row">
+                        <td>
+                          Bitcoin Key
+                        </td>
+                        <td className="td-right">
+                          {this.state.key}
+                        </td>
+                      </th>
+                    </tr>
+                    <tr>
+                      <th scope="row">
+                        <td>
+                          Date & Time
+                        </td>
+                        <td className="td-right">
+                          {this.state.dateTime}
+                        </td>
+                      </th>
+                    </tr>
+                    <tr>
+                      <th scope="row">
+                        <td>
+                          BTC
+                        </td>
+                        <td className="td-right">
+                          {this.state.btc}
+                        </td>
+                      </th>
+                    </tr>
+                    <tr>
+                      <th scope="row">
+                        <td>
+                          Confirmations
+                        </td>
+                        <td className="td-right">
+                          {this.state.confirmations}
+                        </td>
+                      </th>
+                    </tr>
+                  </tbody>
+                </table>
+                <div className="form-wrapper">
+                  <form>
+                    <div className="row">
+                      <div className="col-md-7">
+                      <input type="text" placeholder="Enter your email address" />
+                    </div>
+                    <div className="col-md-5">
+                      <a href="#" className="submit-btn">
+                        <i className="fa fa-envelope" />
+                        Subscribe to Digital Mint Updates
+                      </a>
+                    </div>
+                  </div>
+                  </form>
+                </div>
+              </div> 
+              <div className="footer">
+                FINCEN BSA ID 31000080204265
+                <br/>
+                Copyright © 2016
               </div>
-              <table className="table table-striped">
-                <tbody>
-                  <tr>
-                    <th scope="row">
-                      <td className="table-title">
-                        Summary
-                      </td>
-                      <td>
-                      </td>
-                    </th>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      <td>
-                        Bitcoin Key
-                      </td>
-                      <td className="td-right">
-                        {this.state.key}
-                      </td>
-                    </th>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      <td>
-                        Date & Time
-                      </td>
-                      <td className="td-right">
-                        {this.state.dateTime}
-                      </td>
-                    </th>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      <td>
-                        BTC
-                      </td>
-                      <td className="td-right">
-                        {this.state.btc}
-                      </td>
-                    </th>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      <td>
-                        Confirmations
-                      </td>
-                      <td className="td-right">
-                        {this.state.confirmations}
-                      </td>
-                    </th>
-                  </tr>
-                </tbody>
-              </table>
-            </div> 
+            </div>
           )
         }
       })
