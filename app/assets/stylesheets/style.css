@@ -1,5 +1,5 @@
 body{
-  background-image: url("background-pattern.png");
+  background-image: asset-url("background-pattern.png");
   min-height: 500px;
 }
 .container{
