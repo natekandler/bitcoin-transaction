@@ -1,0 +1,56 @@
+body{
+  background-image: url("background-pattern.png");
+  min-height: 500px;
+}
+.container{
+  background: #fff;
+}
+h1{
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  color: #333;
+  font-size: 26px;
+  text-align: center;
+}
+.status-wrapper{
+  text-align: center;
+  margin: 40px 0 50px 0;
+}
+.table{
+  margin: 0 auto;
+  max-width: 865px;
+  color: #333;
+}
+.table-title{
+  color: #5aaa61;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+.td-right{
+  text-align: right;
+}
+.container{
+  padding-bottom: 40px;
+}
+.fa-spinner{
+  color: #5aaa61;
+  font-size: 28px;
+}
+.spinner-label{
+  color: #5aaa61;
+  font-size: 26px;
+  font-weight: 600;
+  margin-left: 20px;
+}
+.fa-check{
+  color: #476667;
+  font-size: 28px;
+}
+.check-label{
+  color: #476667;
+  font-size: 26px;
+  font-weight: 600;
+  margin-left: 10px;
+}
+

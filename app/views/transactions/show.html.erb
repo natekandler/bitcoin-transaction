@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <script src="https://fb.me/react-0.13.3.js"></script>
+  <script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+</head>
+  <body>
+    <div id="component"></div>
+    <script type="text/jsx">
+      var TransactionInfo = React.createClass({
+        getInitialState: function() {
+          return({
+            key: "",
+            dateTime: "",
+            btc: "",
+            confirmations: "",
+            processing: "true"
+          })
+        },
+
+        componentDidMount: function() {
+          this.checkTransaction();
+        },
+
+        checkTransaction: function(){
+          var self = this;
+          this.apiCall();  
+
+          window.setTimeout(function(){
+          if(self.state.processing == "true"){ 
+              console.log("checked")
+              self.apiCall();  
+            }
+          }, 1000)
+        },
+
+        apiCall: function(){
+          var self = this;
+          var transactionId = this.getQueryParameters()["transaction"]
+          var processing = ""
+          //blockcypher api
+          $.get('https://api.blockcypher.com/v1/btc/main/txs/' + transactionId)
+          .then(function(response) {
+      
+            var processing = response.confirmations == 0 ? "true" : "false"
+
+            self.setState({  key: response.hash , dateTime: response.confirmed, btc: (response.total / 100000000), confirmations: response.confirmations, processing: processing })
+          });
+        },
+
+        currentStatus: function(processing){
+          if(processing == "true"){
+            return(
+              <div>
+              <i className="fa fa-spinner fa-pulse fa-3x fa-fw margin-bottom"></i>
+              <span className="spinner-label">Processing</span>
+              </div>
+            )
+          }
+          else{
+            return(
+              <div>
+              <i className="fa fa-check" />
+              <span className="check-label">Completed</span>
+              </div>
+            )
+          }
+        },
+
+
+        getQueryParameters : function(str) {
+          return (str || document.location.search).replace(/(^\?)/,'').split("&").map(function(n){return n = n.split("="),this[n[0]] = n[1],this}.bind({}))[0];
+        },
+
+
+        render: function() {
+          return(
+            <div className="container">
+              <h1>Your Transaction Status</h1>
+              <div className="status-wrapper">
+                {this.currentStatus(this.state.processing)}
+              </div>
+              <table className="table table-striped">
+                <tbody>
+                  <tr>
+                    <th scope="row">
+                      <td className="table-title">
+                        Summary
+                      </td>
+                      <td>
+                      </td>
+                    </th>
+                  </tr>
+                  <tr>
+                    <th scope="row">
+                      <td>
+                        Bitcoin Key
+                      </td>
+                      <td className="td-right">
+                        {this.state.key}
+                      </td>
+                    </th>
+                  </tr>
+                  <tr>
+                    <th scope="row">
+                      <td>
+                        Date & Time
+                      </td>
+                      <td className="td-right">
+                        {this.state.dateTime}
+                      </td>
+                    </th>
+                  </tr>
+                  <tr>
+                    <th scope="row">
+                      <td>
+                        BTC
+                      </td>
+                      <td className="td-right">
+                        {this.state.btc}
+                      </td>
+                    </th>
+                  </tr>
+                  <tr>
+                    <th scope="row">
+                      <td>
+                        Confirmations
+                      </td>
+                      <td className="td-right">
+                        {this.state.confirmations}
+                      </td>
+                    </th>
+                  </tr>
+                </tbody>
+              </table>
+            </div> 
+          )
+        }
+      })
+      React.render(<TransactionInfo />, document.getElementById('component'));
+    </script>
+  </body>
+
+</html>
+
